@@ -24,7 +24,7 @@ const login = expressAsyncHandler(async (req, res) => {
   }
 })
 
-const registerStudent = expressAsyncHandler(async (req, res) => {
+const addStudent = expressAsyncHandler(async (req, res) => {
   const { name, email, password, role, studentClass, grade } = req.body;
 
   // Check if the student already exists by email
@@ -43,7 +43,6 @@ const registerStudent = expressAsyncHandler(async (req, res) => {
 
     const student = await newStudent.save();
 
-    // Respond with success
     res.status(201).json({
       message: "Student registered successfully",
       student: {
@@ -53,15 +52,14 @@ const registerStudent = expressAsyncHandler(async (req, res) => {
         role: student.role,
         studentClass: student.studentClass,
         grade: student.grade,
-        token: signToken(student._id, student.isTeacher), // Generate JWT token
+        token: signToken(student._id, student.role),
       },
     });
   } else {
-    // Respond with a conflict error
     res.status(409).json({ message: "Student already exists" });
   }
 });
 export {
   login,
-  registerStudent
+  addStudent
 }
