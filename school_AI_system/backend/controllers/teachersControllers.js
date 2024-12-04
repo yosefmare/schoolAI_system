@@ -15,7 +15,7 @@ const login = expressAsyncHandler(async (req, res) => {
         _id: teacher._id,
         name: teacher.name,
         email: teacher.email,
-        role: teacher.role,
+        isTeacher: teacher.isTeacher,
         token: signToken(teacher._id, teacher.role)
       }
     })
@@ -26,11 +26,24 @@ const login = expressAsyncHandler(async (req, res) => {
 
 const registerStudent = expressAsyncHandler(async (req, res) => {
   const { name, email, password, role, studentClass, grade } = req.body;
-  const isRegitred = Student.findOne({ password })
-  if (!isRegitred) {
-    const newStudent = new Student({ name, email, password, role, studentClass, grade });
+
+  // Check if the student already exists by email
+  const isRegistered = await Student.findOne({ email }); // Fix: Check by email, not password
+
+  if (!isRegistered) {
+    // Create a new student
+    const newStudent = new Student({
+      name,
+      email,
+      password,
+      role,
+      studentClass,
+      grade
+    });
+
     const student = await newStudent.save();
 
+    // Respond with success
     res.status(201).json({
       message: "Student registered successfully",
       student: {
@@ -40,14 +53,14 @@ const registerStudent = expressAsyncHandler(async (req, res) => {
         role: student.role,
         studentClass: student.studentClass,
         grade: student.grade,
-        token: signToken(student._id, student.role)
-      }
-    })
-  } else{
+        token: signToken(student._id, student.isTeacher), // Generate JWT token
+      },
+    });
+  } else {
+    // Respond with a conflict error
     res.status(409).json({ message: "Student already exists" });
   }
-})
-
+});
 export {
   login,
   registerStudent
