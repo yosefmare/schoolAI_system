@@ -1,26 +1,32 @@
 import expressAsyncHandler from "express-async-handler";
-import signToken from "../utils/signToken";
-import Student from "../schemas/studentScheema"
+import signToken from "../utils/signToken.js";
+import Student from "../schemas/studentScheema.js"
 
 
 const login = expressAsyncHandler(async (req, res) => {
-  const { password } = req.body;
+  const { email, password } = req.body;
 
-  const student = await Student.findOne({ password })
+  const student = await Student.findOne({ email})
 
   if (student) {
-    res.status(200).json({
-      message: "Logged in successfully",
-      student: {
-        _id: student._id,
-        name: student.name,
-        role: student.role,
-        class: student.class,
-        grade: student.grade,
-        token: signToken(student._id, student.role)
-      }
-    })
+    if (password === student.password) {
+      res.status(200).json({
+        message: "Logged in successfully",
+        student: {
+          _id: student._id,
+          name: student.name,
+          isTeacher: student.isTeacher,
+          studentClass: student.studentClass,
+          grade: student.grade,
+          token: signToken(student._id, student.isTeacher)
+        }
+      })
+    }
   } else{
     res.status(404).json({ message: "Invalid password" });
   }
 })
+
+export {
+  login
+}
