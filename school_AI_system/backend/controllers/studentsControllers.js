@@ -15,10 +15,10 @@ const login = expressAsyncHandler(async (req, res) => {
         student: {
           _id: student._id,
           name: student.name,
-          isTeacher: student.isTeacher,
+          role: student.role,
           studentClass: student.studentClass,
           grade: student.grade,
-          token: signToken(student._id, student.isTeacher)
+          token: signToken(student._id, student.role)
         }
       })
     }
