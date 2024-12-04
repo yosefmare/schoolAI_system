@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import cors from "cors";
 import connectDB from "./config/connectDB.js";
 import teachersRoutes from "./routes/teachersRoutes.js";
+import studentsRoutes from "./routes/studentsRoutes.js";
 
 
 const app = express()
@@ -15,11 +16,13 @@ dotenv.config()
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use("/api/teachers", teachersRoutes )
-
 // Connect to MongoDB
 connectDB()
+
+// Routes
+app.use("/api/teachers", teachersRoutes )
+app.use("/api/students", studentsRoutes )
+
 
 // Start the server
 const PORT = process.env.PORT || 5000;
