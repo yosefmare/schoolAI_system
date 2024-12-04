@@ -27,7 +27,7 @@ const protect = expressAsyncHandler(async (req, res, next) => {
 });
 
 const isTeacher = (req, res, next) => {
-  if (req.teacher && req.teacher.isTeacher) {
+  if (req.teacher && req.teacher.role) {
     next();
   } else {
     res.status(401).json({ msg: "Not authorized as an admin" });
