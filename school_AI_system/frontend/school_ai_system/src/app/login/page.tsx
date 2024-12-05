@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TextField,
   Button,
@@ -8,16 +8,29 @@ import {
   Tabs,
   Tab,
 } from "@mui/material";
-import { useAppDispatch } from "../../app/redux/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../app/redux/hooks/reduxHooks";
 import { teacherLogin } from "../redux/feacures/teachers/teachersAsyncTunks";
 import { studentLogin } from "../redux/feacures/students/studentsAsyncTunks";
+import {useRouter} from "next/navigation";
 
 type UserType = "student" | "authorized";
 
 const Login: React.FC = () => {
+  const router = useRouter();
   const [userType, setUserType] = useState<UserType>("student");
   const [formData, setFormData] = useState({ email: "", password: "" }); // Manage form data
   const dispatch = useAppDispatch();
+  const studentState = useAppSelector((state) => state.studentReducer.value)
+  const teacherState = useAppSelector((state) => state.teacherReducer.value)
+
+useEffect(() => {
+  if (studentState?.token || teacherState?.token) {
+    router.push("/dashboard");
+  }
+}, [
+  studentState?.token,
+  teacherState?.token,
+])
 
   const handleUserTypeChange = (_: React.SyntheticEvent, newValue: UserType) => {
     setUserType(newValue);
