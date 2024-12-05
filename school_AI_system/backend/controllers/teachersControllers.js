@@ -15,7 +15,7 @@ const login = expressAsyncHandler(async (req, res) => {
         _id: teacher._id,
         name: teacher.name,
         email: teacher.email,
-        isTeacher: teacher.isTeacher,
+        role: teacher.role,
         token: signToken(teacher._id, teacher.role)
       }
     })
