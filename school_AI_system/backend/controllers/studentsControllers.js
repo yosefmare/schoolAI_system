@@ -4,25 +4,27 @@ import Student from "../schemas/studentScheema.js"
 
 
 const login = expressAsyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { role, password } = req.body;
+  if (role === "student") {
+    const student = await Student.findOne({ role: "student", password });
 
-  const student = await Student.findOne({ email})
+    if (student) {
 
-  if (student) {
-    if (password === student.password) {
-      res.status(200).json({
-        message: "Logged in successfully",
-        student: {
-          _id: student._id,
-          name: student.name,
-          role: student.role,
-          studentClass: student.studentClass,
-          grade: student.grade,
-          token: signToken(student._id, student.role)
-        }
-      })
+      if (password === student.password) {
+        res.status(200).json({
+          message: "Logged in successfully",
+          student: {
+            _id: student._id,
+            name: student.name,
+            role: student.role,
+            studentClass: student.studentClass,
+            grade: student.grade,
+            token: signToken(student._id, student.role)
+          }
+        })
+      }
     }
-  } else{
+  } else {
     res.status(404).json({ message: "Invalid password" });
   }
 })
