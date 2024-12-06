@@ -15,6 +15,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import Link from "next/link";
 
 const drawerWidth = 240;
 
@@ -68,7 +69,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
               <ListItemIcon>
                 <PersonAddIcon />
               </ListItemIcon>
+              <Link href={"/dashboard/teachers/addStudent"}>
               <ListItemText primary="Add Student" />
+              </Link>
             </ListItemButton>
           </List>
         </Collapse>
