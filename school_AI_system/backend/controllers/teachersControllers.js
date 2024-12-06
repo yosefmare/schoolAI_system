@@ -28,7 +28,7 @@ const addStudent = expressAsyncHandler(async (req, res) => {
   const { name, email, password, role, studentClass, grade } = req.body;
 
   // Check if the student already exists by email
-  const isRegistered = await Student.findOne({ email }); // Fix: Check by email, not password
+  const isRegistered = await Student.findOne({ password }); // Fix: Check by email, not password
 
   if (!isRegistered) {
     // Create a new student
@@ -48,12 +48,9 @@ const addStudent = expressAsyncHandler(async (req, res) => {
       student: {
         _id: student._id,
         name: student.name,
-        email: student.email,
-        role: student.role,
         studentClass: student.studentClass,
-        grade: student.grade,
         token: signToken(student._id, student.role),
-      },
+      }
     });
   } else {
     res.status(409).json({ message: "Student already exists" });
