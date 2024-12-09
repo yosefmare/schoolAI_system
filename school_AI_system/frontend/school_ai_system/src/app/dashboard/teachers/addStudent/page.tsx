@@ -1,14 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import {
-  TextField,
-  Button,
-  Box,
-  Paper,
-  Typography,
-} from "@mui/material";
-import { addStudent } from "../../../redux/feacures/teachers/teachersAsyncTunks"
+import { TextField, Button, Box, Paper, Typography } from "@mui/material";
+import { addStudent } from "../../../redux/feacures/teachers/teachersAsyncTunks";
 import { useAppDispatch } from "../../../redux/hooks/reduxHooks";
+
 interface FormData {
   name: string;
   password: string;
@@ -21,7 +16,8 @@ const AddStudent: React.FC = () => {
     password: "",
     studentClass: "",
   });
-const dispatch = useAppDispatch()
+
+  const dispatch = useAppDispatch();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -33,10 +29,8 @@ const dispatch = useAppDispatch()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const { name, password, studentClass } = formData;
-
-    dispatch(addStudent({ name, password, studentClass}))
+    dispatch(addStudent({ name, password, studentClass }));
   };
 
   return (
@@ -45,7 +39,8 @@ const dispatch = useAppDispatch()
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        minHeight: "100vh",
+        p: 2,
         backgroundColor: "transparent",
       }}
     >
@@ -53,11 +48,12 @@ const dispatch = useAppDispatch()
         elevation={3}
         sx={{
           width: "100%",
-          maxWidth: "400px",
-          padding: "2rem",
+          maxWidth: { xs: "100%", sm: "400px" },
+          padding: { xs: "1.5rem", sm: "2rem" },
+          boxShadow: 4,
         }}
       >
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h5" gutterBottom align="center">
           Add Student
         </Typography>
 
@@ -70,6 +66,7 @@ const dispatch = useAppDispatch()
             value={formData.name}
             onChange={handleChange}
             required
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             label="Password"
@@ -80,6 +77,7 @@ const dispatch = useAppDispatch()
             value={formData.password}
             onChange={handleChange}
             required
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             label="Class"
@@ -89,13 +87,18 @@ const dispatch = useAppDispatch()
             value={formData.studentClass}
             onChange={handleChange}
             required
+            InputLabelProps={{ shrink: true }}
           />
           <Button
             type="submit"
             variant="contained"
             color="primary"
             fullWidth
-            sx={{ mt: 2 }}
+            sx={{
+              mt: 3,
+              py: 1,
+              fontSize: "1rem",
+            }}
           >
             Add Student
           </Button>
