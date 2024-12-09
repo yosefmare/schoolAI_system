@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 import {
   Drawer,
@@ -16,9 +18,9 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import Link from "next/link";
 import BasicModal from "./ui/modals/AddStudent";
-
+import { useAppDispatch } from "@/app/redux/hooks/reduxHooks";
+import { toggleStudentCard } from "@/app/redux/feacures/students/stutentSlice";
 const drawerWidth = 240;
 
 interface SidebarProps {
@@ -27,6 +29,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   const [isTeacherMenuOpen, setIsTeacherMenuOpen] = useState(false);
+  const dispatch = useAppDispatch()
 
   const toggleTeacherMenu = () => {
     setIsTeacherMenuOpen(!isTeacherMenuOpen);
@@ -78,7 +81,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
               <ListItemIcon>
                 <PeopleIcon />
               </ListItemIcon>
-              <ListItemText primary="Student" />
+              <ListItemText onClick={(e) => {
+dispatch(toggleStudentCard())
+              }} primary="Student" />
             </ListItemButton>
           </List>
         </Collapse>
