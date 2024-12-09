@@ -23,14 +23,14 @@ const Login: React.FC = () => {
   const studentState = useAppSelector((state) => state.studentReducer.value)
   const teacherState = useAppSelector((state) => state.teacherReducer.value)
 
-useEffect(() => {
-  if (studentState?.token || teacherState?.token) {
-    router.push("/dashboard");
-  }
-}, [
-  studentState?.token,
-  teacherState?.token,
-])
+// useEffect(() => {
+//   if (studentState?.token || teacherState?.token) {
+//     router.push("/dashboard");
+//   }
+// }, [
+//   studentState?.token,
+//   teacherState?.token,
+// ])
 
   const handleUserTypeChange = (_: React.SyntheticEvent, newValue: UserType) => {
     setUserType(newValue);
@@ -49,14 +49,14 @@ useEffect(() => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    router.push("/dashboard");
+    // const { email, password } = formData;
 
-    const { email, password } = formData;
-
-    if (email && password) {
-      dispatch(teacherLogin({ email, password }));
-    } else if (password) {
-      dispatch(studentLogin({ role: "student", password }));
-    }
+    // if (email && password) {
+    //   dispatch(teacherLogin({ email, password }));
+    // } else if (password) {
+    //   dispatch(studentLogin({ role: "student", password }));
+    // }
   };
 
   return (
