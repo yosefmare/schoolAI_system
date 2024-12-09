@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useState } from "react";
 import {
@@ -22,7 +22,7 @@ const Dashboard = () => {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", position: "relative", height: "100vh" }}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -45,27 +45,30 @@ const Dashboard = () => {
           </Typography>
         </Toolbar>
       </AppBar>
+
       <Sidebar isOpen={isDrawerOpen} />
+
       <Box
         component="main"
         sx={{
           flexGrow: 1,
           p: 3,
-          marginLeft: isDrawerOpen ? drawerWidth : 0,
-          transition: (theme) =>
-            theme.transitions.create("margin-left", {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
+          mt: 8, // Offset for the AppBar height
+          display: "flex",
+          justifyContent: "center", // Horizontally center content
+          alignItems: "center",     // Vertically center content
+          height: "calc(100vh - 64px)", // Full height minus AppBar height (64px)
+          textAlign: "center",      // Center-align the text
         }}
       >
-        <Toolbar />
-        <Typography variant="h4" gutterBottom>
-          Welcome to the Dashboard
-        </Typography>
-        <Typography paragraph>
-          This is the main content area. Use the sidebar to navigate.
-        </Typography>
+        <Box>
+          <Typography variant="h4" gutterBottom>
+            Welcome to the Dashboard
+          </Typography>
+          <Typography paragraph>
+            This is the main content area. Use the sidebar to navigate.
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );

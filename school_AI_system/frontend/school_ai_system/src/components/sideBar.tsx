@@ -36,10 +36,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
       open={isOpen}
       sx={{
         width: drawerWidth,
-        flexShrink: 0,
+        position: "fixed",
+        zIndex: 1200,
         "& .MuiDrawer-paper": {
           width: drawerWidth,
-          boxSizing: "border-box",
+          position: "fixed",
         },
       }}
     >
@@ -70,7 +71,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                 <PersonAddIcon />
               </ListItemIcon>
               <Link href={"/dashboard/teachers/addStudent"}>
-              <ListItemText primary="Add Student" />
+                <ListItemText primary="Add Student" />
               </Link>
             </ListItemButton>
           </List>
