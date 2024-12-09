@@ -11,32 +11,22 @@ import {
 import { useAppDispatch, useAppSelector } from "../../app/redux/hooks/reduxHooks";
 import { teacherLogin } from "../redux/feacures/teachers/teachersAsyncTunks";
 import { studentLogin } from "../redux/feacures/students/studentsAsyncTunks";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 type UserType = "student" | "authorized";
 
 const Login: React.FC = () => {
   const router = useRouter();
   const [userType, setUserType] = useState<UserType>("student");
-  const [formData, setFormData] = useState({ email: "", password: "" }); // Manage form data
+  const [formData, setFormData] = useState({ email: "", username: "", password: "" });
   const dispatch = useAppDispatch();
-  const studentState = useAppSelector((state) => state.studentReducer.value)
-  const teacherState = useAppSelector((state) => state.teacherReducer.value)
-
-// useEffect(() => {
-//   if (studentState?.token || teacherState?.token) {
-//     router.push("/dashboard");
-//   }
-// }, [
-//   studentState?.token,
-//   teacherState?.token,
-// ])
+  const studentState = useAppSelector((state) => state.studentReducer.value);
+  const teacherState = useAppSelector((state) => state.teacherReducer.value);
 
   const handleUserTypeChange = (_: React.SyntheticEvent, newValue: UserType) => {
     setUserType(newValue);
-
     // Clear inputs when toggling tabs
-    setFormData({ email: "", password: "" });
+    setFormData({ email: "", username: "", password: "" });
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,12 +40,18 @@ const Login: React.FC = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     router.push("/dashboard");
-    // const { email, password } = formData;
 
-    // if (email && password) {
-    //   dispatch(teacherLogin({ email, password }));
-    // } else if (password) {
-    //   dispatch(studentLogin({ role: "student", password }));
+    // Submit logic based on userType
+    // if (userType === "authorized") {
+    //   const { email, password } = formData;
+    //   if (email && password) {
+    //     dispatch(teacherLogin({ email, password }));
+    //   }
+    // } else {
+    //   const { username, password } = formData;
+    //   if (username && password) {
+    //     dispatch(studentLogin({ role: "student", username, password }));
+    //   }
     // }
   };
 
@@ -89,19 +85,31 @@ const Login: React.FC = () => {
           <Tab label="Student" value="student" />
           <Tab label="Authorized People" value="authorized" />
         </Tabs>
+
         <form onSubmit={handleSubmit}>
-          {userType === "authorized" && (
+          {userType === "student" ? (
+            <TextField
+              label="Username"
+              name="username"
+              fullWidth
+              margin="normal"
+              required
+              value={formData.username}
+              onChange={handleChange}
+            />
+          ) : (
             <TextField
               label="Email"
               name="email"
               fullWidth
               margin="normal"
               type="email"
-              required={userType === "authorized"} // Only required for authorized users
+              required
               value={formData.email}
               onChange={handleChange}
             />
           )}
+
           <TextField
             label="Password"
             name="password"
@@ -112,6 +120,7 @@ const Login: React.FC = () => {
             value={formData.password}
             onChange={handleChange}
           />
+
           <Button
             type="submit"
             variant="contained"
