@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev && open http://localhost:3000/login",
+    "json-server": "json-server --watch db.json --port 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -26,6 +27,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "json-server": "^1.0.0-beta.3",
     "typescript": "^5"
   }
 }
