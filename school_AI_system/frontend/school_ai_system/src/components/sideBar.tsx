@@ -10,12 +10,14 @@ import {
   ListItemIcon,
   Collapse,
 } from "@mui/material";
+import PersonIcon from '@mui/icons-material/Person';
 import PeopleIcon from "@mui/icons-material/People";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Link from "next/link";
+import BasicModal from "./ui/modals/AddStudent";
 
 const drawerWidth = 240;
 
@@ -58,7 +60,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
         <ListItem disablePadding>
           <ListItemButton onClick={toggleTeacherMenu}>
             <ListItemIcon>
-              <PeopleIcon />
+              <PersonIcon />
             </ListItemIcon>
             <ListItemText primary="Teacher" />
             {isTeacherMenuOpen ? <ExpandLess /> : <ExpandMore />}
@@ -70,9 +72,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
               <ListItemIcon>
                 <PersonAddIcon />
               </ListItemIcon>
-              <Link href={"/dashboard/teachers/addStudent"}>
-                <ListItemText primary="Add Student" />
-              </Link>
+              <BasicModal />
+            </ListItemButton>
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <PeopleIcon />
+              </ListItemIcon>
+              <ListItemText primary="Student" />
             </ListItemButton>
           </List>
         </Collapse>
