@@ -19,17 +19,14 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import BasicModal from "./ui/modals/AddStudent";
-import { useAppDispatch } from "@/app/redux/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hooks/reduxHooks";
 import { toggleStudentCard } from "@/app/redux/feacures/teachers/teacherSlice";
 const drawerWidth = 240;
 
-interface SidebarProps {
-  isOpen: boolean;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
+const Sidebar: React.FC = () => {
   const [isTeacherMenuOpen, setIsTeacherMenuOpen] = useState(false);
   const dispatch = useAppDispatch()
+  const sideBarState = useAppSelector((state) => state.sideBarReducers)
 
   const toggleTeacherMenu = () => {
     setIsTeacherMenuOpen(!isTeacherMenuOpen);
@@ -38,7 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   return (
     <Drawer
       variant="persistent"
-      open={isOpen}
+      open={sideBarState.isOpen}
       sx={{
         width: drawerWidth,
         position: "fixed",

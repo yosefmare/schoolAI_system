@@ -1,12 +1,13 @@
-
 import { configureStore } from "@reduxjs/toolkit";
 import teacherReducer from "./feacures/teachers/teacherSlice";
 import studentReducer from "./feacures/students/stutentSlice";
+import sideBarReducers from "./reducers/sidebarreducers";
 
 export const store = configureStore({
   reducer:{
     teacherReducer,
-    studentReducer
+    studentReducer,
+    sideBarReducers
   }
 })
 
