@@ -29,7 +29,7 @@ const studentsData = [
 
 const Dashboard = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const studentsState = useAppSelector((state) => state.studentReducer);
+  const teacherState = useAppSelector((state) => state.teacherReducer);
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -70,11 +70,11 @@ const Dashboard = () => {
           alignItems: "center",
         }}
       >
-        {studentsState.visible ? (
+        {teacherState.dispalyAllStudents ? (
           studentsData.map((student) => (
             <StudentCard
               key={student.id}
-              visible={studentsState.visible}
+              visible={teacherState.dispalyAllStudents}
               name={student.name}
               image={student.image}
             />

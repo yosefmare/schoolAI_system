@@ -20,7 +20,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import BasicModal from "./ui/modals/AddStudent";
 import { useAppDispatch } from "@/app/redux/hooks/reduxHooks";
-import { toggleStudentCard } from "@/app/redux/feacures/students/stutentSlice";
+import { toggleStudentCard } from "@/app/redux/feacures/teachers/teacherSlice";
 const drawerWidth = 240;
 
 interface SidebarProps {

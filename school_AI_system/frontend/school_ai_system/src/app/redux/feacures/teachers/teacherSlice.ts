@@ -18,6 +18,7 @@ export type InitialState = {
   value: Teacher;
   error: string | null| undefined;
   loading: boolean;
+  dispalyAllStudents: boolean;
 };
 
 const initialState: InitialState = {
@@ -30,16 +31,22 @@ const initialState: InitialState = {
   },
   error: null,
   loading: false,
+  dispalyAllStudents: false,
 };
 
 
 export const teacher = createSlice({
   name: "teacher",
   initialState,
-  reducers: {},
+  reducers: {
+    toggleStudentCard(state) {
+      state.dispalyAllStudents = !state.dispalyAllStudents;
+    },
+  },
   extraReducers: (builder: ActionReducerMapBuilder<InitialState>) => {
     teacherLoginExtraReducer(builder);
   },
 });
+export const { toggleStudentCard } = teacher.actions;
 
 export default teacher.reducer;
