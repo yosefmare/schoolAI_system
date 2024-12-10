@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { TextField, Button, Box, Paper, Typography } from "@mui/material";
 import { addStudent } from "../../../redux/feacures/teachers/teachersAsyncTunks";
@@ -34,77 +35,58 @@ const AddStudent: React.FC = () => {
   };
 
   return (
-    <Box
+    <Paper
+      elevation={6}
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        p: 2,
-        backgroundColor: "transparent",
+        p: { xs: 2, sm: 3 },
+        borderRadius: 2,
+        boxShadow: 4,
       }}
     >
-      <Paper
-        elevation={3}
-        sx={{
-          width: "100%",
-          maxWidth: { xs: "100%", sm: "400px" },
-          padding: { xs: "1.5rem", sm: "2rem" },
-          boxShadow: 4,
-        }}
-      >
-        <Typography variant="h5" gutterBottom align="center">
-          Add Student
-        </Typography>
+      <Typography variant="h5" gutterBottom align="center" sx={{ fontWeight: "bold", mb: 2 }}>
+        Add Student
+      </Typography>
 
-        <form onSubmit={handleSubmit}>
-          <TextField
-            label="Name"
-            name="name"
-            fullWidth
-            margin="normal"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            InputLabelProps={{ shrink: true }}
-          />
-          <TextField
-            label="Password"
-            name="password"
-            fullWidth
-            margin="normal"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            InputLabelProps={{ shrink: true }}
-          />
-          <TextField
-            label="Class"
-            name="studentClass"
-            fullWidth
-            margin="normal"
-            value={formData.studentClass}
-            onChange={handleChange}
-            required
-            InputLabelProps={{ shrink: true }}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-            sx={{
-              mt: 3,
-              py: 1,
-              fontSize: "1rem",
-            }}
-          >
-            Add Student
-          </Button>
-        </form>
-      </Paper>
-    </Box>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          label="Name"
+          name="name"
+          fullWidth
+          margin="normal"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        <TextField
+          label="Password"
+          name="password"
+          fullWidth
+          margin="normal"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        <TextField
+          label="Class"
+          name="studentClass"
+          fullWidth
+          margin="normal"
+          value={formData.studentClass}
+          onChange={handleChange}
+          required
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          sx={{ mt: 3, py: 1 }}
+        >
+          Add Student
+        </Button>
+      </form>
+    </Paper>
   );
 };
 
